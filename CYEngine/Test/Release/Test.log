@@ -1,0 +1,21 @@
+﻿  main.cpp
+RenderEngine.lib(Shader.obj) : error LNK2001: 无法解析的外部符号 __imp__fgetc
+RenderEngine.lib(Shader.obj) : error LNK2001: 无法解析的外部符号 __imp__fwrite
+RenderEngine.lib(Shader.obj) : error LNK2001: 无法解析的外部符号 __imp__fgetpos
+RenderEngine.lib(Shader.obj) : error LNK2001: 无法解析的外部符号 __imp__setvbuf
+RenderEngine.lib(Shader.obj) : error LNK2001: 无法解析的外部符号 __imp__ungetc
+RenderEngine.lib(Shader.obj) : error LNK2001: 无法解析的外部符号 __imp__fsetpos
+RenderEngine.lib(Shader.obj) : error LNK2001: 无法解析的外部符号 __imp__fread
+RenderEngine.lib(Shader.obj) : error LNK2001: 无法解析的外部符号 __imp___fseeki64
+glfw3.lib(context.obj) : error LNK2001: 无法解析的外部符号 __imp____stdio_common_vsscanf
+glfw3.lib(input.obj) : error LNK2001: 无法解析的外部符号 __imp__strcspn
+glfw3.lib(input.obj) : error LNK2001: 无法解析的外部符号 __imp__strncpy
+glfw3.lib(window.obj) : error LNK2001: 无法解析的外部符号 __imp__strncpy
+glfw3.lib(win32_joystick.obj) : error LNK2001: 无法解析的外部符号 __imp__strncpy
+glfw3.lib(monitor.obj) : error LNK2001: 无法解析的外部符号 __imp__strncpy
+glfw3.lib(input.obj) : error LNK2001: 无法解析的外部符号 __imp__strspn
+glfw3.lib(input.obj) : error LNK2001: 无法解析的外部符号 __imp__realloc
+glfw3.lib(win32_monitor.obj) : error LNK2001: 无法解析的外部符号 __imp__realloc
+glfw3.lib(monitor.obj) : error LNK2001: 无法解析的外部符号 __imp__realloc
+glfw3.lib(input.obj) : error LNK2001: 无法解析的外部符号 __imp__strtoul
+E:\Code\CYEngine\CYEngine\Release\Test.exe : fatal error LNK1120: 14 个无法解析的外部命令
