@@ -1,21 +1,21 @@
 
 #include "RenderEngine.h"
 #include<iostream>
-#include"Shader.h"
+#include "Shader.h"
 #include "OpenGLMacros.h"
+#include <stb_image.h>
 NS_CY_BEGIN
 float vertices[] = {
--0.5f, -0.5f, 0.0f, 1.0f,0.0f,0.0f,//0
- 0.5f, -0.5f, 0.0f, 0.0f, 1.0f, 0.0f, //1
- 0.0f,  0.5f, 0.0f, 0.0f,0.0f,1.0f, // 2
- //0.0f,  0.5f, 0.0f, // 2
- // 0.5f, -0.5f, 0.0f,  // 1
- 0.8f,0.8f,0.0f  ,1.0f,1.0f,0.0f// 3
+	//     ---- 位置 ----       ---- 颜色 ----     - 纹理坐标 -
+		0.5f,  0.5f, 0.0f,   1.0f, 0.0f, 0.0f,   1.0f, 1.0f,   // 右上
+		0.5f, -0.5f, 0.0f,   0.0f, 1.0f, 0.0f,   1.0f, 0.0f,   // 右下
+	   -0.5f, -0.5f, 0.0f,   0.0f, 0.0f, 1.0f,   0.0f, 0.0f,   // 左下
+	   -0.5f,  0.5f, 0.0f,   1.0f, 1.0f, 0.0f,   0.0f, 1.0f    // 左上
 };
 
 unsigned int indices[] = {
 	0,1,2,
-	2,1,3
+	2,3,0
 };
 
 
@@ -63,19 +63,38 @@ Shader* shader;
 		GlBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
 		GlBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
 
+		unsigned int texture;
+		GlGenTextures(1, &texture);
+		GlBindTexture(GL_TEXTURE0, texture);
+		int tex_width, tex_height, nrChannels;
+		stbi_set_flip_vertically_on_load(true);
+		unsigned char* data = stbi_load(R"(../Resources/content.png)", &tex_width, &tex_height, &nrChannels, 0);
+		if (data)
+		{
+			GlTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, tex_width, tex_height, GL_RGBA, GL_UNSIGNED_BYTE, data);
+		
+		}
+		else
+		{
+			std::cout << "Failed to load texture" << std::endl;
+		}
+		stbi_image_free(data);
 
 		/**
 		* CREATE SHADER
 		*/
 		shader = new Shader(R"(../Engine/TestVertexShader.txt)", R"(../Engine/TestFragmentShader.txt)");
+
+
 		
-		GlVertexAttribPointer(8, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)0);
+		GlVertexAttribPointer(8, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)0);
 		GlEnableVertexAttribArray(8);
 
-		GlVertexAttribPointer(9, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)(3*sizeof(float)));
+		GlVertexAttribPointer(9, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(3*sizeof(float)));
 		GlEnableVertexAttribArray(9);
 
-		
+		GlVertexAttribPointer(10, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(6 * sizeof(float)));
+		GlEnableVertexAttribArray(10);
 
 		return true;
 	}
@@ -92,11 +111,12 @@ Shader* shader;
 
 			float timeValue = (float)GlfwGetTime();
 			float greenValue = (sin(timeValue) / 2.0f) + 0.5f;
-			int vertexColorLocation = GlGetUniformLocation(shader->ID, "ourColor");
+		
 		
 			GlBindVertexArray(VAO);
 			shader->use();
-			GlUniform(vertexColorLocation, 0.0f, greenValue, 0.0f, 1.0f);
+			shader->setFloat("ourColor", 0.0f, greenValue, 0.0f, 1.0f);
+			shader->setFloat("ourTime", timeValue);
 			GlDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT,0);
 
 			GlfwSwapBuffers(window);

@@ -2,6 +2,7 @@
 #include<string>
 #include "CObject.h"
 #include"EngineMacros.h"
+#include "OpenGLMacros.h"
 NS_CY_BEGIN
 USING_STD;
 class Shader :
@@ -14,16 +15,37 @@ public:
     
     const  char*const* GetVertexSource() { return &vertexSource; };
     const  char*const* GetFragmentSource() { return &fragmentSource; };
+    /*指定当前要用的shader程序*/
     void use();
+    /*给shader程序传送 bool*/
     void setBool(const string& name, bool value) const;
+    /*给shader程序传送 1 int 分量 uniform*/
     void setInt(const string& name, int value) const;
+    /*给shader程序传送 n int 数组 uniform*/
+    void setIntArray(const string& name, int count, int* array) const;
+    /*给shader程序传送 2 int 分量 uniform*/
+    void setInt(const string& name, int value0,  int value1) const;
+    /*给shader程序传送 3 int 分量 uniform*/
+    void setInt(const string& name, int value0, int value1, int value2) const;
+    /*给shader程序传送 4 int 分量 uniform*/
+    void setInt(const string& name, int value0, int value1, int value2, int value3) const;
+    /*给shader程序传送 1 float 分量 uniform*/
     void setFloat(const string& name, float value) const;
+    /*给shader程序传送 n float 数组 uniform*/
+    void setFloatArray(const string& name, int count, float* array) const;
+    /*给shader程序传送 2 float 分量 uniform*/
+    void setFloat(const string& name, float value0, float value1) const;
+    /*给shader程序传送 3 float 分量 uniform*/
+    void setFloat(const string& name, float value0, float value1, float value2) const;
+    /*给shader程序传送 4 float 分量 uniform*/
+    void setFloat(const string& name, float value0, float value1, float value2, float value3) const;
 private:
     const char* vertexSource;
     const char* fragmentSource;
     string vertexString;
     string fragmentString;
     bool compile();
+    bool checkCompileResult(GLuint shader, GLenum pname);
 };
 NS_CY_END
 

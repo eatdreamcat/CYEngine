@@ -93,7 +93,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>E:\Code\CYEngine\CYEngine\lib\opengl\glfw-3.3.5.bin.WIN32\include;E:\Code\CYEngine\CYEngine\lib\opengl\glew-2.1.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>E:\Code\CYEngine\CYEngine\lib;E:\Code\CYEngine\CYEngine\lib\opengl\glfw-3.3.5.bin.WIN32\include;E:\Code\CYEngine\CYEngine\lib\opengl\glew-2.1.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
     </ClCompile>
@@ -113,7 +113,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>E:\Code\CYEngine\CYEngine\lib\opengl\glfw-3.3.5.bin.WIN32\include;E:\Code\CYEngine\CYEngine\lib\opengl\glew-2.1.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>E:\Code\CYEngine\CYEngine\lib;E:\Code\CYEngine\CYEngine\lib\opengl\glfw-3.3.5.bin.WIN32\include;E:\Code\CYEngine\CYEngine\lib\opengl\glew-2.1.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
     </ClCompile>
@@ -133,7 +133,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>E:\Code\CYEngine\CYEngine\lib\opengl\glfw-3.3.5.bin.WIN32\include;E:\Code\CYEngine\CYEngine\lib\opengl\glew-2.1.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>E:\Code\CYEngine\CYEngine\lib;E:\Code\CYEngine\CYEngine\lib\opengl\glfw-3.3.5.bin.WIN32\include;E:\Code\CYEngine\CYEngine\lib\opengl\glew-2.1.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
     </ClCompile>
@@ -153,7 +153,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>E:\Code\CYEngine\CYEngine\lib\opengl\glfw-3.3.5.bin.WIN32\include;E:\Code\CYEngine\CYEngine\lib\opengl\glew-2.1.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>E:\Code\CYEngine\CYEngine\lib;E:\Code\CYEngine\CYEngine\lib\opengl\glfw-3.3.5.bin.WIN32\include;E:\Code\CYEngine\CYEngine\lib\opengl\glew-2.1.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
     </ClCompile>
@@ -208,6 +208,9 @@
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</DeploymentContent>
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</DeploymentContent>
     </Text>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\Resources\content.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

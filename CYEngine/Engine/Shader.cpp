@@ -2,7 +2,7 @@
 #include<fstream>
 #include<iostream>
 #include<sstream>
-#include "OpenGLMacros.h"
+
 USING_STD
 NS_CY_BEGIN
 Shader::Shader(const char* vertexPath, const char* fragmentPath):vertexSource(nullptr),fragmentSource(nullptr),ID(-1){
@@ -59,60 +59,105 @@ void Shader::use()
 
 void Shader::setBool(const string& name, bool value) const
 {
+	
+	GlUniform(GlGetUniformLocation(ID, name.c_str()), (int)value);
 }
 
 void Shader::setInt(const string& name, int value) const
 {
+	GlUniform(GlGetUniformLocation(ID, name.c_str()), value);
+}
+
+void Shader::setIntArray(const string& name, int count, int* array) const
+{
+	GlUniform(GlGetUniformLocation(ID, name.c_str()), count, array);
+}
+
+void Shader::setInt(const string& name, int value0, int value1) const
+{
+	GlUniform(GlGetUniformLocation(ID, name.c_str()), value0, value1);
+}
+
+void Shader::setInt(const string& name, int value0, int value1, int value2) const
+{
+	GlUniform(GlGetUniformLocation(ID, name.c_str()), value0, value1, value2);
+}
+
+void Shader::setInt(const string& name, int value0, int value1, int value2, int value3) const
+{
+	GlUniform(GlGetUniformLocation(ID, name.c_str()), value0, value1,value2,value3);
 }
 
 void Shader::setFloat(const string& name, float value) const
 {
+	GlUniform(GlGetUniformLocation(ID, name.c_str()), value);
+}
+
+void Shader::setFloatArray(const string& name, int count, float* array) const
+{
+	GlUniform(GlGetUniformLocation(ID, name.c_str()), count, array);
+}
+
+void Shader::setFloat(const string& name, float value0, float value1) const
+{
+	GlUniform(GlGetUniformLocation(ID, name.c_str()), value0, value1);
+}
+
+void Shader::setFloat(const string& name, float value0, float value1, float value2) const
+{
+	GlUniform(GlGetUniformLocation(ID, name.c_str()), value0, value1, value2);
+}
+
+void Shader::setFloat(const string& name, float value0, float value1, float value2, float value3) const
+{
+	GlUniform(GlGetUniformLocation(ID, name.c_str()), value0, value1, value2, value3);
 }
 
 bool Shader::compile()
 {
 	unsigned int vertex, fragment;
 	
-	char infoLog[512];
-	int success;
-
+	// 编译顶点着色器
 	vertex = GlCreateShader(GL_VERTEX_SHADER);
 	GlShaderSource(vertex, 1, GetVertexSource(), NULL);
-
 	GlCompileShader(vertex);
-	GlGetShaderiv(vertex, GL_COMPILE_STATUS, &success);
-	if (!success) {
-		GlGetShaderInfoLog(vertex, 512, NULL, infoLog);
-		cout << "ERROR::SHADER::VERTEX::COMPILE ERROR:" << infoLog << endl;
+	if (!checkCompileResult(vertex, GL_COMPILE_STATUS)) {
 		return false;
 	}
 
+	// 编译片元着色器
 	fragment = GlCreateShader(GL_FRAGMENT_SHADER);
 	GlShaderSource(fragment, 1, GetFragmentSource(), NULL);
-
 	GlCompileShader(fragment);
-	GlGetShaderiv(fragment, GL_COMPILE_STATUS, &success);
-
-	if (!success) {
-		GlGetShaderInfoLog(fragment, 512, NULL, infoLog);
-		cout << "ERROR::SHADER::FRAGMENT::COMPILE ERROR:" << infoLog << endl;
+	if (!checkCompileResult(fragment, GL_COMPILE_STATUS)) {
 		return false;
 	}
 
+	// link
 	ID = GlCreateProgram();
 	GlAttachShader(ID, vertex);
 	GlAttachShader(ID, fragment);
 	GlLinkProgram(ID);
-	GlGetShaderiv(ID, GL_LINK_STATUS, &success);
-	if (!success) {
-		GlGetShaderInfoLog(ID, 512, NULL, infoLog);
-		cout << "ERROR::SHADER::LINK ERROR:" << infoLog << endl;
+	if (!checkCompileResult(ID, GL_LINK_STATUS)) {
 		return false;
 	}
+
 
 	GlDeleteShader(vertex);
 	GlDeleteShader(fragment);
 
+	return true;
+}
+bool Shader::checkCompileResult(GLuint shader, GLenum pname)
+{
+	char infoLog[512];
+	int success;
+	GlGetShaderiv(shader, pname, &success);
+	if (!success) {
+		GlGetShaderInfoLog(shader, 512, NULL, infoLog);
+		cout << "ERROR::SHADER::COMPILE ERROR:" << infoLog << endl;
+		return false;
+	}
 	return true;
 }
 NS_CY_END
