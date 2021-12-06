@@ -4,7 +4,7 @@
 #include<GL/glew.h>
 #include<GLFW/glfw3.h>
 #include"InputSystem.h"
-NS_CY_BEGIN
+
 	class RenderEngine:public CObject
 	{
 	public:
@@ -19,5 +19,5 @@ NS_CY_BEGIN
 		InputSystem* inputSys;
 	};
 
-NS_CY_END
+
 

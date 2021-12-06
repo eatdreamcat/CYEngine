@@ -4,6 +4,9 @@ in vec4 vertexColor;
 in vec2 TexCoord;
 uniform sampler2D ourTexture;
 uniform float ourTime;
+uniform float randomNum;
+uniform vec2 center;
+/*
 void main()
 {
     float offset_u = 0.25*( sin(3.14*TexCoord.y*1.5+ 4*ourTime) + 1 )/2;
@@ -11,7 +14,20 @@ void main()
 	if (TexCoord.x<offset_u || TexCoord.x>offset_u+0.5) {
 	    FragColor = vec4(0,0,0,0);
 	}else {
-	    FragColor = texture(ourTexture,vec2(TexCoord.x+offset_u,TexCoord.y)) * vec4((sin(3.14*TexCoord.x + ourTime)+1)/2,(cos(3.14 * ourTime)+1)/2,(sin(3.14 * TexCoord.y- ourTime)+1)/2,1);
+	   FragColor = texture(ourTexture,vec2(TexCoord.x+offset_u,TexCoord.y)) * vec4((sin(3.14*TexCoord.x + ourTime)+1)/2,(cos(3.14 * ourTime)+1)/2,(sin(3.14 * TexCoord.y- ourTime)+1)/2,1);
 	}
 	
+}
+*/
+void main()
+{
+  float len = sqrt((TexCoord.x-center.x)*(TexCoord.x-center.y) +(TexCoord.y-center.x)*(TexCoord.y-center.y) );
+  float offset = sin(len + ourTime*2)*randomNum*len;
+
+  float u=TexCoord.x+(TexCoord.x -center.x)/len*offset;
+  float v=TexCoord.y+(center.y-TexCoord.y)/len*offset;
+  //u = max(0, min(u,1));
+  //v = max(0, min(v,1));
+  FragColor = texture(ourTexture,vec2(u,v));
+  
 }

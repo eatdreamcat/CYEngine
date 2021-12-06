@@ -3,7 +3,7 @@
 #include "CObject.h"
 #include"EngineMacros.h"
 #include "OpenGLMacros.h"
-NS_CY_BEGIN
+
 USING_STD;
 class Shader :
     public CObject
@@ -39,6 +39,8 @@ public:
     void setFloat(const string& name, float value0, float value1, float value2) const;
     /*给shader程序传送 4 float 分量 uniform*/
     void setFloat(const string& name, float value0, float value1, float value2, float value3) const;
+    /**/
+    void setMatrix4x4(const string& name, GLsizei count, GLboolean transpose, const GLfloat* value) const;
 private:
     const char* vertexSource;
     const char* fragmentSource;
@@ -47,5 +49,5 @@ private:
     bool compile();
     bool checkCompileResult(GLuint shader, GLenum pname);
 };
-NS_CY_END
+
 

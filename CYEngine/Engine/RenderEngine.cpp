@@ -3,8 +3,11 @@
 #include<iostream>
 #include "Shader.h"
 #include "OpenGLMacros.h"
-#include <stb_image.h>
-NS_CY_BEGIN
+//#include <stb_image.h>
+#include"GlTexture.h"
+#include"Vec3.h"
+//#include"Matrix4x4.h"
+
 float vertices[] = {
 	//     ---- 位置 ----       ---- 颜色 ----     - 纹理坐标 -
 		0.5f,  0.5f, 0.0f,   1.0f, 0.0f, 0.0f,   1.0f, 1.0f,   // 右上
@@ -23,6 +26,7 @@ unsigned int indices[] = {
 unsigned int VAO;
 using namespace std;
 Shader* shader;
+GlTexture* glTexture;
 	bool RenderEngine::createWindow(int width, int height, const char* title) {
 
 	
@@ -63,22 +67,25 @@ Shader* shader;
 		GlBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
 		GlBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
 
-		unsigned int texture;
+		/*unsigned int texture;
 		GlGenTextures(1, &texture);
 		GlBindTexture(GL_TEXTURE0, texture);
 		int tex_width, tex_height, nrChannels;
 		stbi_set_flip_vertically_on_load(true);
-		unsigned char* data = stbi_load(R"(../Resources/content.png)", &tex_width, &tex_height, &nrChannels, 0);
+		unsigned char* data = stbi_load(R"(../Resources/TEST.jpg)", &tex_width, &tex_height, &nrChannels, 0);
 		if (data)
 		{
-			GlTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, tex_width, tex_height, GL_RGBA, GL_UNSIGNED_BYTE, data);
-		
+			GlTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, tex_width, tex_height, GL_RGB, GL_UNSIGNED_BYTE, data);
+			GlTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+			GlTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
 		}
 		else
 		{
 			std::cout << "Failed to load texture" << std::endl;
 		}
-		stbi_image_free(data);
+		stbi_image_free(data);*/
+		glTexture = new GlTexture(R"(../Resources/TEST.jpg)");
+		glTexture->genTextureBuffer();
 
 		/**
 		* CREATE SHADER
@@ -104,6 +111,13 @@ Shader* shader;
 	void  RenderEngine::start() {
 
 
+		
+		/*Vec3 vec3; 
+		Vec3 move(2.0f, 5.5f, 0.0f);
+		vec3.translate(move);
+		cout << vec3.x << vec3.y << vec3.z << endl;*/
+
+		//Matrix4x4 transform;
 		while (!GlfwWindowShouldClose(window))
 		{
 			GlClearColor(0.3f, 0.3f, 0.3f, 1.0f);
@@ -117,6 +131,9 @@ Shader* shader;
 			shader->use();
 			shader->setFloat("ourColor", 0.0f, greenValue, 0.0f, 1.0f);
 			shader->setFloat("ourTime", timeValue);
+			shader->setFloat("randomNum", (float)(rand() / RAND_MAX) - 0.5);
+			shader->setFloat("center", 0.5,0.5);
+			//shader->setMatrix4x4("transform", 1, GL_FALSE, )
 			GlDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT,0);
 
 			GlfwSwapBuffers(window);
@@ -124,7 +141,11 @@ Shader* shader;
 			inputSys->ProcessInput(window);
 		}
 		GlfwTerminate();
+		delete		shader;
+		shader = nullptr;
+		delete glTexture;
+		glTexture = nullptr;
 	}
 
 
-NS_CY_END
+

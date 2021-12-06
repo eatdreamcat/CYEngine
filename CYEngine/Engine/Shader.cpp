@@ -4,7 +4,6 @@
 #include<sstream>
 
 USING_STD
-NS_CY_BEGIN
 Shader::Shader(const char* vertexPath, const char* fragmentPath):vertexSource(nullptr),fragmentSource(nullptr),ID(-1){
 
 	ifstream vertexFile;
@@ -113,6 +112,11 @@ void Shader::setFloat(const string& name, float value0, float value1, float valu
 	GlUniform(GlGetUniformLocation(ID, name.c_str()), value0, value1, value2, value3);
 }
 
+void Shader::setMatrix4x4(const string& name, GLsizei count, GLboolean transpose, const GLfloat* value) const
+{
+	GlUniformMatrix4v(GlGetUniformLocation(ID, name.c_str()), count, transpose, value);
+}
+
 bool Shader::compile()
 {
 	unsigned int vertex, fragment;
@@ -160,6 +164,6 @@ bool Shader::checkCompileResult(GLuint shader, GLenum pname)
 	}
 	return true;
 }
-NS_CY_END
+
 
 

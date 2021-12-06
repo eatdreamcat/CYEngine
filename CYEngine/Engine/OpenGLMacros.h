@@ -307,6 +307,13 @@ inline void GlUniform(GLint location, GLsizei count, const GLint* value) {
 	}
 }
 
+/*给shader程序传送 4x4 矩阵*/
+inline void  GlUniformMatrix4v(GLint location, GLsizei count, GLboolean transpose, const GLfloat* value) {
+	glUniformMatrix4fv(location, count, transpose, value);
+}
+
+
+
 /*给shader程序传送 1 int 分量 uniform*/
 inline void GlUniform(GLint location, GLint v0) {
 	glUniform1i(location, v0);

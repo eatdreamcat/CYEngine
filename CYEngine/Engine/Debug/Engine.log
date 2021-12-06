@@ -1,2 +1,9 @@
-﻿  RenderEngine.cpp
+﻿  CObject.cpp
+  GlTexture.cpp
+  InputSystem.cpp
+  main.cpp
+  RenderEngine.cpp
+E:\Code\CYEngine\CYEngine\Engine\RenderEngine.cpp(134,61): warning C4244: “参数”: 从“double”转换到“float”，可能丢失数据
+  Shader.cpp
+  正在生成代码...
   Engine.vcxproj -> E:\Code\CYEngine\CYEngine\lib\RenderEngine.lib

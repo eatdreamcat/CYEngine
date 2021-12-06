@@ -170,13 +170,21 @@
   <ItemGroup>
     <ClInclude Include="CObject.h" />
     <ClInclude Include="EngineMacros.h" />
+    <ClInclude Include="GlTexture.h" />
     <ClInclude Include="InputSystem.h" />
+    <ClInclude Include="MathBase.h" />
+    <ClInclude Include="Matrix2x2.h" />
+    <ClInclude Include="Matrix4x4.h" />
     <ClInclude Include="OpenGLMacros.h" />
     <ClInclude Include="RenderEngine.h" />
     <ClInclude Include="Shader.h" />
+    <ClInclude Include="Vec2.h" />
+    <ClInclude Include="Vec3.h" />
+    <ClInclude Include="Vec4.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CObject.cpp" />
+    <ClCompile Include="GlTexture.cpp" />
     <ClCompile Include="InputSystem.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="RenderEngine.cpp" />
@@ -211,6 +219,7 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\Resources\content.png" />
+    <Image Include="..\Resources\TEST.jpg" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
