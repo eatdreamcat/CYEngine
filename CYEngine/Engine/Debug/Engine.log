@@ -1,9 +1,6 @@
-﻿  CObject.cpp
-  GlTexture.cpp
-  InputSystem.cpp
-  main.cpp
+﻿  Camera.cpp
   RenderEngine.cpp
-E:\Code\CYEngine\CYEngine\Engine\RenderEngine.cpp(134,61): warning C4244: “参数”: 从“double”转换到“float”，可能丢失数据
-  Shader.cpp
+E:\Code\CYEngine\CYEngine\Engine\RenderEngine.cpp(201,18): warning C4305: “+=”: 从“double”到“float”截断
   正在生成代码...
+E:\Code\CYEngine\CYEngine\Engine\Camera.cpp(27): warning C4172: 返回局部变量或临时变量的地址
   Engine.vcxproj -> E:\Code\CYEngine\CYEngine\lib\RenderEngine.lib

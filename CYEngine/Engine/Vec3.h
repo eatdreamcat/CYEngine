@@ -20,6 +20,15 @@ public:
         set(array);
     };
 
+
+    inline void operator=(const Vec3& v) 
+    {
+        this->x = v.x;
+        this->y = v.y;
+        this->z = v.z;
+    };
+
+
     inline Vec3 operator+(const Vec3& v) const
     {
         Vec3 result(*this);
@@ -117,7 +126,7 @@ public:
         float dy = v1.z * v2.x - v1.x * v2.z;
         float dz = v1.x * v2.y - v1.y * v2.x;
 
-        return std::atan2(std::sqrt(dx * dx + dy * dy + dz * dz) + MATH_FLOAT_SMALL, dot(v1, v2));
+        return (float)std::atan2(std::sqrt(dx * dx + dy * dy + dz * dz) + MATH_FLOAT_SMALL, dot(v1, v2));
     };
 
 
@@ -191,7 +200,7 @@ public:
         z = array[2];
     };
 
-    inline void set(const Vec3& p1, const Vec3& p2)
+    inline void set(const Vec3& p2, const Vec3& p1 = Vec3::ZERO)
     {
         x = p2.x - p1.x;
         y = p2.y - p1.y;
@@ -242,9 +251,17 @@ public:
         z -= v.z;
     };
 
+    static void subtract(const Vec3& v1, const Vec3& v2, Vec3* dst)
+    {
+      
+        dst->x = v1.x - v2.x;
+        dst->y = v1.y - v2.y;
+        dst->z = v1.z - v2.z;
+    }
+
     inline float length() const
     {
-        return std::sqrt(x * x + y * y + z * z);
+        return (float)std::sqrt(x * x + y * y + z * z);
     };
 
     inline float lengthSquared() const
@@ -303,7 +320,14 @@ public:
         cross(*this, v, this);
     };
 
-    inline void cross(const Vec3& v1, const Vec3& v2, Vec3* dst)
+    static Vec3 cross(const Vec3& v1, const Vec3& v2)
+    {
+        Vec3 dst;
+        MathUtil::crossVec3(&v1.x, &v2.x, &dst.x);
+        return dst;
+    };
+
+    static void cross(const Vec3& v1, const Vec3& v2, Vec3* dst)
     {
         MathUtil::crossVec3(&v1.x, &v2.x, &dst->x);
     };
@@ -327,8 +351,4 @@ public:
     ~Vec3() {};
 };
 
-const Vec3 Vec3::ZERO(0.0f, 0.0f, 0.0f);
-const Vec3 Vec3::ONE(1.0f, 1.0f, 1.0f);
-const Vec3 Vec3::UNIT_X(1.0f, 0.0f, 0.0f);
-const Vec3 Vec3::UNIT_Y(0.0f, 1.0f, 0.0f);
-const Vec3 Vec3::UNIT_Z(0.0f, 0.0f, 1.0f);
+

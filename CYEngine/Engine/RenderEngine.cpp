@@ -5,15 +5,51 @@
 #include "OpenGLMacros.h"
 //#include <stb_image.h>
 #include"GlTexture.h"
-#include"Vec3.h"
-//#include"Matrix4x4.h"
+#include"Camera.h"
+
 
 float vertices[] = {
-	//     ---- 位置 ----       ---- 颜色 ----     - 纹理坐标 -
-		0.5f,  0.5f, 0.0f,   1.0f, 0.0f, 0.0f,   1.0f, 1.0f,   // 右上
-		0.5f, -0.5f, 0.0f,   0.0f, 1.0f, 0.0f,   1.0f, 0.0f,   // 右下
-	   -0.5f, -0.5f, 0.0f,   0.0f, 0.0f, 1.0f,   0.0f, 0.0f,   // 左下
-	   -0.5f,  0.5f, 0.0f,   1.0f, 1.0f, 0.0f,   0.0f, 1.0f    // 左上
+	 -0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
+	 0.5f, -0.5f, -0.5f,  1.0f, 0.0f,
+	 0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
+	 0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
+	-0.5f,  0.5f, -0.5f,  0.0f, 1.0f,
+	-0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
+
+	-0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
+	 0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
+	 0.5f,  0.5f,  0.5f,  1.0f, 1.0f,
+	 0.5f,  0.5f,  0.5f,  1.0f, 1.0f,
+	-0.5f,  0.5f,  0.5f,  0.0f, 1.0f,
+	-0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
+
+	-0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+	-0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
+	-0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+	-0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+	-0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
+	-0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+
+	 0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+	 0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
+	 0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+	 0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+	 0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
+	 0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+
+	-0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+	 0.5f, -0.5f, -0.5f,  1.0f, 1.0f,
+	 0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
+	 0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
+	-0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
+	-0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+
+	-0.5f,  0.5f, -0.5f,  0.0f, 1.0f,
+	 0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
+	 0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+	 0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+	-0.5f,  0.5f,  0.5f,  0.0f, 0.0f,
+	-0.5f,  0.5f, -0.5f,  0.0f, 1.0f
 };
 
 unsigned int indices[] = {
@@ -27,6 +63,9 @@ unsigned int VAO;
 using namespace std;
 Shader* shader;
 GlTexture* glTexture;
+Shader* shaderLand;
+GlTexture* glTextureLand;
+Camera* camera;
 	bool RenderEngine::createWindow(int width, int height, const char* title) {
 
 	
@@ -62,10 +101,10 @@ GlTexture* glTexture;
 		GlBindBuffer(GL_ARRAY_BUFFER, VBO);
 		GlBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 
-		unsigned int EBO;
+		/*unsigned int EBO;
 		GlGenBuffers(1, &EBO);
 		GlBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-		GlBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
+		GlBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);*/
 
 		/*unsigned int texture;
 		GlGenTextures(1, &texture);
@@ -85,7 +124,13 @@ GlTexture* glTexture;
 		}
 		stbi_image_free(data);*/
 		glTexture = new GlTexture(R"(../Resources/TEST.jpg)");
-		glTexture->genTextureBuffer();
+		glTexture->genTextureBuffer(GL_TEXTURE0, GL_TEXTURE_2D);
+		
+
+		glTextureLand = new GlTexture(R"(../Resources/land.jpg)");
+		glTextureLand->genTextureBuffer(GL_TEXTURE1, GL_TEXTURE_2D);
+		glTexture->setTextureWrapMode(GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE);
+		glTextureLand->setTextureWrapMode(GL_REPEAT, GL_REPEAT);
 
 		/**
 		* CREATE SHADER
@@ -94,14 +139,14 @@ GlTexture* glTexture;
 
 
 		
-		GlVertexAttribPointer(8, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)0);
+		GlVertexAttribPointer(8, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)0);
 		GlEnableVertexAttribArray(8);
 
-		GlVertexAttribPointer(9, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(3*sizeof(float)));
+		GlVertexAttribPointer(9, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3*sizeof(float)));
 		GlEnableVertexAttribArray(9);
 
-		GlVertexAttribPointer(10, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(6 * sizeof(float)));
-		GlEnableVertexAttribArray(10);
+		/*GlVertexAttribPointer(10, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(6 * sizeof(float)));
+		GlEnableVertexAttribArray(10);*/
 
 		return true;
 	}
@@ -116,25 +161,61 @@ GlTexture* glTexture;
 		Vec3 move(2.0f, 5.5f, 0.0f);
 		vec3.translate(move);
 		cout << vec3.x << vec3.y << vec3.z << endl;*/
+		camera = new Camera(Vec3(0, 0, 3), Vec3(0,1,0), Vec3::UNIT_Y);
+		float rotation = 0;
+		Matrix4x4 viewMat;
+		viewMat = camera->getViewMatrix();
+		Matrix4x4 proMat;
+		proMat.createPerspective(45, 800 / 600, 0.1f, 100.0f,&proMat);
 
-		//Matrix4x4 transform;
+		Vec3 cubePositions[] = {
+  Vec3(0.0f,  0.0f,  0.0f),
+  Vec3(2.0f,  5.0f, -15.0f),
+  Vec3(-1.5f, -2.2f, -2.5f),
+  Vec3(-3.8f, -2.0f, -12.3f),
+ Vec3(2.4f, -0.4f, -3.5f),
+ Vec3(-1.7f,  3.0f, -7.5f),
+  Vec3(1.3f, -2.0f, -2.5f),
+ Vec3(1.5f,  2.0f, -2.5f),
+ Vec3(1.5f,  0.2f, -1.5f),
+ Vec3(-1.3f,  1.0f, -1.5f)
+		};
+
+
+		GlEnable(GL_DEPTH_TEST);
 		while (!GlfwWindowShouldClose(window))
 		{
 			GlClearColor(0.3f, 0.3f, 0.3f, 1.0f);
-			GlClear(GL_COLOR_BUFFER_BIT);
-
+			GlClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
+			GlBindVertexArray(VAO); 
 			float timeValue = (float)GlfwGetTime();
 			float greenValue = (sin(timeValue) / 2.0f) + 0.5f;
-		
-		
-			GlBindVertexArray(VAO);
 			shader->use();
 			shader->setFloat("ourColor", 0.0f, greenValue, 0.0f, 1.0f);
 			shader->setFloat("ourTime", timeValue);
-			shader->setFloat("randomNum", (float)(rand() / RAND_MAX) - 0.5);
-			shader->setFloat("center", 0.5,0.5);
-			//shader->setMatrix4x4("transform", 1, GL_FALSE, )
-			GlDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT,0);
+			shader->setFloat("randomNum", (float)(rand() / RAND_MAX) - 0.5f);
+			shader->setFloat("center", 0.5, 0.5);
+			shader->setMatrix4x4("view", 1, GL_FALSE, viewMat.m);
+			shader->setMatrix4x4("projection", 1, GL_FALSE, proMat.m);
+			
+			rotation+=0.01;
+
+			for (unsigned int i = 0; i < 10; i++)
+			{
+				Matrix4x4 modelMat;
+				Matrix4x4 rotationModel;
+				modelMat.createRotation(Vec3::ONE, rotation + i*10, &rotationModel);
+				modelMat.createTranslation(cubePositions[i], &modelMat);
+				modelMat.multiply(rotationModel);
+				
+
+				shader->setMatrix4x4("model", 1, GL_FALSE, modelMat.m);
+
+				glDrawArrays(GL_TRIANGLES, 0, 36);
+			}
+			
+			
+			
 
 			GlfwSwapBuffers(window);
 			GlfwPollEvents();

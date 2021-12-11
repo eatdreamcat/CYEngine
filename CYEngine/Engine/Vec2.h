@@ -1,10 +1,11 @@
 #pragma once
 #include "CObject.h"
+#include <float.h>
 #include"MathBase.h"
 class Vec2 :
     public CObject
 {
-private:
+
 public:
     float x;
     float y;
@@ -18,72 +19,65 @@ public:
         set(array);
     };
 
-    inline Vec2 Vec2::operator+(const Vec2& v) const
+    inline Vec2 operator+(const Vec2& v) const
     {
-        Vec3 result(*this);
+        Vec2 result(*this);
         result.add(v);
         return result;
     };
 
-    inline Vec2& Vec2::operator+=(const Vec2& v)
+    inline Vec2& operator+=(const Vec2& v)
     {
         add(v);
         return *this;
     };
 
-    inline Vec2 Vec2::operator-(const Vec2& v) const
+    inline Vec2 operator-(const Vec2& v) const
     {
         Vec2 result(*this);
         result.subtract(v);
         return result;
     };
 
-    inline Vec2& Vec2::operator-=(const Vec2& v)
+    inline Vec2& operator-=(const Vec2& v)
     {
         subtract(v);
         return *this;
     };
 
-    inline Vec2 Vec2::operator-() const
+    inline Vec2 operator-() const
     {
         Vec2 result(*this);
         result.negate();
         return result;
     };
 
-    inline Vec2 Vec2::operator*(float s) const
+    inline Vec2 operator*(float s) const
     {
         Vec2 result(*this);
         result.scale(s);
         return result;
     };
 
-    inline Vec2& Vec2::operator*=(float s)
+    inline Vec2& operator*=(float s)
     {
         scale(s);
         return *this;
     };
 
-    inline Vec2 Vec2::operator/(const float s) const
+    inline Vec2 operator/(const float s) const
     {
         return Vec2(this->x / s, this->y / s);
     };
 
-    inline bool Vec2::operator==(const Vec2& v) const
+    inline bool operator==(const Vec2& v) const
     {
-        return x == v.x && y == v.y
+        return x == v.x && y == v.y;
     };
 
-    inline bool Vec2::operator!=(const Vec2& v) const
+    inline bool operator!=(const Vec2& v) const
     {
-        return x != v.x || y != v.y 
-    };
-
-    inline Vec2 operator*(float x, const Vec2& v)
-    {
-        Vec2 result(v);
-        result.scale(x);
-        return result;
+        return x != v.x || y != v.y;
     };
 
     inline bool operator < (const Vec2& rhs) const
@@ -100,18 +94,18 @@ public:
         return false;
     };
 
-    inline bool Vec2::isZero() const
+    inline bool isZero() const
     {
         return x == 0.0f && y == 0.0f;
     };
 
-    inline bool Vec2::isOne() const
+    inline bool isOne() const
     {
         return x == 1.0f && y == 1.0f;
     };
 
 
-    inline Vec2 Vec2::lerp(const Vec2& target, float alpha) const
+    inline Vec2  lerp(const Vec2& target, float alpha) const
     {
         return *this * (1.f - alpha) + target * alpha;
     };
@@ -121,71 +115,71 @@ public:
         y = array[1];
     };
 
-    inline void Vec2::set(const Vec2& p1, const Vec2& p2)
+    inline void  set(const Vec2& p1, const Vec2& p2)
     {
         x = p2.x - p1.x;
         y = p2.y - p1.y;
     };
 
-    inline void Vec2::set(float xx, float yy)
+    inline void set(float xx, float yy)
     {
         this->x = xx;
         this->y = yy;
     };
 
-    inline void Vec2::add(const Vec2& v)
+    inline void  add(const Vec2& v)
     {
         x += v.x;
         y += v.y;
     };
 
-    inline void Vec2::add(float xx, float yy)
+    inline void  add(float xx, float yy)
     {
         x += xx;
         y += yy;
     };
 
-    inline void Vec2::scale(float scalar)
+    inline void  scale(float scalar)
     {
         x *= scalar;
         y *= scalar;
     };
 
 
-    inline void Vec2::setZero()
+    inline void  setZero()
     {
         x = y  = 0.0f;
     };
 
-    inline void Vec2::subtract(const Vec2& v)
+    inline void  subtract(const Vec2& v)
     {
         x -= v.x;
         y -= v.y;
     };
 
-    inline float Vec2::length() const
+    inline float  length() const
     {
         return std::sqrt(x * x + y * y );
     };
 
-    inline float Vec2::lengthSquared() const
+    inline float  lengthSquared() const
     {
         return (x * x + y * y );
     };
 
-    inline void Vec2::negate()
+    inline void negate()
     {
         x = -x;
         y = -y;
     };
 
-    inline bool Vec2::equals(const Vec2& target) const
+    inline bool equals(const Vec2& target) const
     {
         return (std::abs(this->x - target.x) < FLT_EPSILON)
             && (std::abs(this->y - target.y) < FLT_EPSILON);
     };
 
-    inline bool Vec2::fuzzyEquals(const Vec2& b, float var) const
+    inline bool  fuzzyEquals(const Vec2& b, float var) const
     {
         if (x - var <= b.x && b.x <= x + var)
             if (y - var <= b.y && b.y <= y + var)
@@ -193,7 +187,7 @@ public:
         return false;
     };
 
-    void Vec2::normalize()
+    void  normalize()
     {
         float n = x * x + y * y;
         // Already normalized.
@@ -210,14 +204,18 @@ public:
         y *= n;
     };
 
-    inline Vec2 Vec2::getNormalized() const
+    inline Vec2  getNormalized() const
     {
         Vec2 v(*this);
         v.normalize();
         return v;
     };
 
-    inline float Vec2::getAngle(const Vec2& other) const
+    inline float cross(const Vec2& other) const {
+        return x * other.y - y * other.x;
+    }
+
+    inline float  getAngle(const Vec2& other) const
     {
         Vec2 a2 = getNormalized();
         Vec2 b2 = other.getNormalized();
@@ -226,14 +224,18 @@ public:
         return angle;
     };
 
+    inline float dot(const Vec2& v) const
+    {
+        return (x * v.x + y * v.y);
+    }
 
-    inline float Vec2::dot(const Vec2& v1, const Vec2& v2)
+    inline float dot(const Vec2& v1, const Vec2& v2)
     {
         return (v1.x * v2.x + v1.y * v2.y);
     };
 
 
-    inline float Vec2::distance(const Vec2& v) const
+    inline float  distance(const Vec2& v) const
     {
         float dx = v.x - x;
         float dy = v.y - y;
@@ -241,7 +243,7 @@ public:
         return std::sqrt(dx * dx + dy * dy);
     };
 
-    inline void Vec2::clamp(const Vec2& v, const Vec2& min, const Vec2& max, Vec2* dst)
+    inline void clamp(const Vec2& v, const Vec2& min, const Vec2& max, Vec2* dst)
     {
        
         // Clamp the x value.
@@ -259,7 +261,7 @@ public:
             dst->y = max.y;
     };
 
-    inline void Vec2::clamp(const Vec2& min, const Vec2& max)
+    inline void clamp(const Vec2& min, const Vec2& max)
     {
       
 
@@ -276,7 +278,7 @@ public:
             y = max.y;
     };
 
-    inline float Vec2::angle(const Vec2& v1, const Vec2& v2)
+    inline float angle(const Vec2& v1, const Vec2& v2)
     {
         float dz = v1.x * v2.y - v1.y * v2.x;
         return atan2f(fabsf(dz) + MATH_FLOAT_SMALL, dot(v1, v2));
@@ -289,7 +291,7 @@ public:
     };
 
 
-    bool Vec2::isLineParallel(const Vec2& A, const Vec2& B,
+    bool isLineParallel(const Vec2& A, const Vec2& B,
         const Vec2& C, const Vec2& D)
     {
         // FAIL: Line undefined
@@ -312,7 +314,7 @@ public:
         return false;
     };
 
-    bool Vec2::isLineOverlap(const Vec2& A, const Vec2& B,
+    bool isLineOverlap(const Vec2& A, const Vec2& B,
         const Vec2& C, const Vec2& D)
     {
         // FAIL: Line undefined
@@ -331,7 +333,7 @@ public:
     };
     
 
-    bool Vec2::isLineIntersect(const Vec2& A, const Vec2& B,
+    bool isLineIntersect(const Vec2& A, const Vec2& B,
         const Vec2& C, const Vec2& D,
         float* S, float* T)
     {
@@ -355,14 +357,6 @@ public:
         return true;
     };
 
-    inline float Vec2::getAngle(const Vec2& other) const
-    {
-        Vec2 a2 = getNormalized();
-        Vec2 b2 = other.getNormalized();
-        float angle = atan2f(a2.cross(b2), a2.dot(b2));
-        if (std::abs(angle) < FLT_EPSILON) return 0.f;
-        return angle;
-    };
 
     /** equals to Vec2(0,0) */
     static const Vec2 ZERO;
@@ -394,16 +388,3 @@ public:
     ~Vec2() {};
 };
 
-const Vec2 Vec2::ZERO(0.0f, 0.0f);
-const Vec2 Vec2::ONE(1.0f, 1.0f);
-const Vec2 Vec2::UNIT_X(1.0f, 0.0f);
-const Vec2 Vec2::UNIT_Y(0.0f, 1.0f);
-const Vec2 Vec2::ANCHOR_MIDDLE(0.5f, 0.5f);
-const Vec2 Vec2::ANCHOR_BOTTOM_LEFT(0.0f, 0.0f);
-const Vec2 Vec2::ANCHOR_TOP_LEFT(0.0f, 1.0f);
-const Vec2 Vec2::ANCHOR_BOTTOM_RIGHT(1.0f, 0.0f);
-const Vec2 Vec2::ANCHOR_TOP_RIGHT(1.0f, 1.0f);
-const Vec2 Vec2::ANCHOR_MIDDLE_RIGHT(1.0f, 0.5f);
-const Vec2 Vec2::ANCHOR_MIDDLE_LEFT(0.0f, 0.5f);
-const Vec2 Vec2::ANCHOR_MIDDLE_TOP(0.5f, 1.0f);
-const Vec2 Vec2::ANCHOR_MIDDLE_BOTTOM(0.5f, 0.0f);

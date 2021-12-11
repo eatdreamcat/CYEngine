@@ -127,6 +127,10 @@ inline void GlDrawElements(GLenum mode, GLsizei count, GLenum type, const void* 
 	glDrawElements(mode, count, type, indices);
 }
 
+inline void GlDrawArrays(GLenum mode,GLint first, GLsizei count) {
+	glDrawArrays(mode, first, count);
+}
+
 /* Swaps the front and back buffers of the specified window.
 *  交换前端缓冲区和后台缓冲区的数据
 */
@@ -403,6 +407,11 @@ inline void GlGenTextures(GLsizei n, GLuint* textures) {
 /*绑定纹理*/
 inline void GlBindTexture(GLenum target, GLuint texture) {
 	glBindTexture(target, texture);
+}
+
+/*激活纹理单元*/
+inline void GlActiveTexture(GLenum target) {
+	glActiveTexture(target);
 }
 
 /*为当前绑定的纹理对象生成多级渐远*/

@@ -17,9 +17,19 @@ bool GlTexture::loadTexture(const char* url, bool isFlip)
     
 }
 
-void GlTexture::genTextureBuffer(int count)
+void GlTexture::bindTexture() {
+    if (textures != nullptr) {
+        GlActiveTexture(this->target);
+        GlBindTexture(this->type, textures[0]);
+    }
+}
+
+
+void GlTexture::genTextureBuffer(GLenum target, GLenum type, int count)
 {
     textureCount = count;
+    this->target = target;
+    this->type = type;
     if (textures == nullptr) {
         textures = new GLuint[count];
        
@@ -31,13 +41,19 @@ void GlTexture::genTextureBuffer(int count)
    
     GlGenTextures(count, textures);
   
-   GlBindTexture(GL_TEXTURE0, textures[0]);
+    bindTexture();
 
     if (data) {
 
-        GlTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, GL_RGB, GL_UNSIGNED_BYTE, data);
-        GlTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-        GlTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+        GlTexImage2D(this->type, 0, format, width, height, format, GL_UNSIGNED_BYTE, data);
+        GlGenerateMipmap(this->type);
     }
+}
+
+void GlTexture::setTextureWrapMode(GLenum wrap_s, GLenum wrap_t)
+{
+    bindTexture();
+    GlTexParameteri(type, GL_TEXTURE_WRAP_T, wrap_t);
+    GlTexParameteri(type, GL_TEXTURE_WRAP_S, wrap_s);
 }
 
