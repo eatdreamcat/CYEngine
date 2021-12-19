@@ -67,9 +67,9 @@ void Shader::setInt(const string& name, int value) const
 	GlUniform(GlGetUniformLocation(ID, name.c_str()), value);
 }
 
-void Shader::setIntArray(const string& name, int count, int* array) const
+void Shader::setIntArray(const string& name, int count, const int* array, bool isArray) const
 {
-	GlUniform(GlGetUniformLocation(ID, name.c_str()), count, array);
+	GlUniform(GlGetUniformLocation(ID, name.c_str()), count, array, isArray);
 }
 
 void Shader::setInt(const string& name, int value0, int value1) const
@@ -92,9 +92,9 @@ void Shader::setFloat(const string& name, float value) const
 	GlUniform(GlGetUniformLocation(ID, name.c_str()), value);
 }
 
-void Shader::setFloatArray(const string& name, int count, float* array) const
+void Shader::setFloatArray(const string& name, int count, const float* array, bool isArray) const
 {
-	GlUniform(GlGetUniformLocation(ID, name.c_str()), count, array);
+	GlUniform(GlGetUniformLocation(ID, name.c_str()), count, array, isArray);
 }
 
 void Shader::setFloat(const string& name, float value0, float value1) const
@@ -112,9 +112,14 @@ void Shader::setFloat(const string& name, float value0, float value1, float valu
 	GlUniform(GlGetUniformLocation(ID, name.c_str()), value0, value1, value2, value3);
 }
 
-void Shader::setMatrix4x4(const string& name, GLsizei count, GLboolean transpose, const GLfloat* value) const
+void Shader::setTexture(const string& name, int textureSlot) const
 {
-	GlUniformMatrix4v(GlGetUniformLocation(ID, name.c_str()), count, transpose, value);
+	GlUniform(GlGetUniformLocation(ID, name.c_str()), textureSlot);
+}
+
+void Shader::setMatrix4x4(const string& name, GLsizei count, GLboolean transpose, const GLfloat* value, bool isArray) const
+{
+	GlUniformMatrix4v(GlGetUniformLocation(ID, name.c_str()), count, transpose, value, isArray);
 }
 
 bool Shader::compile()

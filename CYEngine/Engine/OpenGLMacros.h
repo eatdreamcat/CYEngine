@@ -1,13 +1,12 @@
 
 #ifndef __OPENGL_MACROS__
 #define __OPENGL_MACROS__
-#define STB_IMAGE_IMPLEMENTATION
 
 #define GLEW_STATIC
-#include "EngineMacros.h"
 #include<GL/glew.h>
 #include<GLFW/glfw3.h>
-//#include <stb_image.h>
+#include "EngineMacros.h"
+#include<iostream>
 
 /**
 *
@@ -270,20 +269,22 @@ inline void GlUseProgram(GLuint program) {
 }
 
 /*给shader程序传送 n float 数组 uniform*/
-inline void GlUniform(GLint location, GLsizei count, const GLfloat* value) {
+inline void GlUniform(GLint location, int count, const GLfloat* value, bool isArray = false) {
+	
+	
 	switch (count)
 	{
 	case 1:
-		glUniform1fv(location, count, value);
+		glUniform1fv(location, isArray ? count : 1, value);
 		break;
 	case 2:
-		glUniform2fv(location, count, value);
+		glUniform2fv(location, isArray ? count : 1, value);
 		break;
 	case 3:
-		glUniform3fv(location, count, value);
+		glUniform3fv(location, isArray ? count : 1, value);
 		break;
 	case 4:
-		glUniform4fv(location, count, value);
+		glUniform4fv(location, isArray ? count : 1, value);
 		break;
 	default:
 		break;
@@ -291,20 +292,20 @@ inline void GlUniform(GLint location, GLsizei count, const GLfloat* value) {
 }
 
 /*给shader程序传送 n int 数组 uniform*/
-inline void GlUniform(GLint location, GLsizei count, const GLint* value) {
+inline void GlUniform(GLint location, int count, const GLint* value, bool isArray = false) {
 	switch (count)
 	{
 	case 1:
-		glUniform1iv(location, count, value);
+		glUniform1iv(location, isArray ? count : 1, value);
 		break;
 	case 2:
-		glUniform2iv(location, count, value);
+		glUniform2iv(location, isArray ? count : 1, value);
 		break;
 	case 3:
-		glUniform3iv(location, count, value);
+		glUniform3iv(location, isArray ? count: 1, value);
 		break;
 	case 4:
-		glUniform4iv(location, count, value);
+		glUniform4iv(location, isArray ? count : 1, value);
 		break;
 	default:
 		break;
@@ -312,8 +313,8 @@ inline void GlUniform(GLint location, GLsizei count, const GLint* value) {
 }
 
 /*给shader程序传送 4x4 矩阵*/
-inline void  GlUniformMatrix4v(GLint location, GLsizei count, GLboolean transpose, const GLfloat* value) {
-	glUniformMatrix4fv(location, count, transpose, value);
+inline void  GlUniformMatrix4v(GLint location, int count, GLboolean transpose, const GLfloat* value, bool isArray = false) {
+	glUniformMatrix4fv(location, isArray ? count : 1, transpose, value);
 }
 
 
@@ -459,5 +460,29 @@ inline void GlTexParameteriv(GLenum target, GLenum pname, GLint* param) {
 }
 
 
+
+/**
+* ********************************************************* 输入相关
+*/
+inline void GlfwSetInputMode(GLFWwindow* share, int mode, int value) {
+	glfwSetInputMode(share, mode, value);
+}
+
+/* 隐藏或者显示指针 */
+inline void GlfwCursorEnable(GLFWwindow* share, bool enable) {
+	if (enable) {
+		GlfwSetInputMode(share, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+	}
+	else
+	{
+		GlfwSetInputMode(share, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+		
+	}
+}
+
+typedef void (*GLFWcursorposfun)(GLFWwindow* window, double xpos, double ypos);
+inline void GlfwSetCursorPosCallback(GLFWwindow* share, GLFWcursorposfun callback) {
+	glfwSetCursorPosCallback(share, callback);
+}
 
 #endif // !__OPENGL_MACROS__

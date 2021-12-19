@@ -1,5 +1,19 @@
 #include "Camera.h"
 
+void Camera::_updateCamera()
+{
+
+    auto pitchRad = MATH_DEG_TO_RAD(_eular.x);
+    auto yawRad = MATH_DEG_TO_RAD(_eular.y);
+
+    _forward.x = cosf(pitchRad) * sinf(yawRad);
+    _forward.y = sinf(pitchRad);
+    _forward.z = cosf(pitchRad) * cosf(yawRad);
+    _forward.normalize();
+    _right = Vec3::cross(_forward, _worldUp).getNormalized();
+    _up = Vec3::cross(_right,_forward ).getNormalized();
+}
+
 Camera* Camera::createPerspective(float fieldOfView, float aspectRatio, float nearPlane, float farPlane)
 {
     return nullptr;
@@ -39,12 +53,37 @@ Camera* Camera::getDefaultCamera()
 Camera::Camera(const Vec3& position, const Vec3& target, const Vec3& worldup)
 {
     _position = position;
-    _worldUp = worldup;
+    _worldUp = worldup.getNormalized();
     _forward = (target - position).getNormalized();
-    _right = Vec3::cross(_forward, worldup).getNormalized();
-    _up = Vec3::cross(_forward, _right).getNormalized() ;
+    _right = Vec3::cross(_forward, _worldUp).getNormalized();
+    _up = Vec3::cross(_right, _forward).getNormalized() ;
+}
+
+Camera::Camera(const Vec3& position, float pitchAngle, float yawAngle, float rollAngle, const Vec3& worldUp)
+{
+    _eular.x = pitchAngle;
+    _eular.y = yawAngle;
+    _eular.z = rollAngle;
+    _position = position;
+    _worldUp = worldUp.getNormalized();
+    _updateCamera();
+
 }
 
 Camera::~Camera()
 {
+}
+
+void Camera::processMouseInput(float deltaX, float deltaY)
+{
+    _eular.x += deltaY;
+    _eular.y += deltaX;
+    _updateCamera();
+}
+
+void Camera::move(float deltaX, float deltaY, float deltaZ)
+{
+
+    _position += _forward * deltaZ*0.1 + _right * deltaX*0.1 + _up * deltaY*0.1;
+
 }

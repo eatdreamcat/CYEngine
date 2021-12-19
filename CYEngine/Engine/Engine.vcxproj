@@ -171,17 +171,22 @@
     <ClInclude Include="Camera.h" />
     <ClInclude Include="CObject.h" />
     <ClInclude Include="CVector.h" />
+    <ClInclude Include="DirectionalLight.h" />
     <ClInclude Include="EngineMacros.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="GlTexture.h" />
     <ClInclude Include="InputSystem.h" />
+    <ClInclude Include="Light.h" />
+    <ClInclude Include="Material.h" />
     <ClInclude Include="MathBase.h" />
     <ClInclude Include="Matrix2x2.h" />
     <ClInclude Include="Matrix4x4.h" />
     <ClInclude Include="OpenGLMacros.h" />
+    <ClInclude Include="PointLight.h" />
     <ClInclude Include="Quaternion.h" />
     <ClInclude Include="RenderEngine.h" />
     <ClInclude Include="Shader.h" />
+    <ClInclude Include="SpotLight.h" />
     <ClInclude Include="Vec2.h" />
     <ClInclude Include="Vec3.h" />
     <ClInclude Include="Vec4.h" />
@@ -190,18 +195,23 @@
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="CObject.cpp" />
     <ClCompile Include="CVector.cpp" />
+    <ClCompile Include="DirectionalLight.cpp" />
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="GlTexture.cpp" />
     <ClCompile Include="InputSystem.cpp" />
+    <ClCompile Include="Light.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Material.cpp" />
+    <ClCompile Include="PointLight.cpp" />
     <ClCompile Include="Quaternion.cpp" />
     <ClCompile Include="RenderEngine.cpp" />
     <ClCompile Include="Shader.cpp" />
+    <ClCompile Include="SpotLight.cpp" />
     <ClCompile Include="TransConst.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="cpp.hint" />
-    <Text Include="TestFragmentShader.txt">
+    <Text Include="TestFragmentShader.frag">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
       <FileType>Document</FileType>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
@@ -214,7 +224,7 @@
     </Text>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="TestVertexShader.txt">
+    <Text Include="TestVertexShader.vert">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
       <FileType>Document</FileType>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
@@ -227,8 +237,11 @@
     </Text>
   </ItemGroup>
   <ItemGroup>
+    <Image Include="..\Resources\container2.png" />
+    <Image Include="..\Resources\container2_specular.png" />
     <Image Include="..\Resources\content.png" />
     <Image Include="..\Resources\land.jpg" />
+    <Image Include="..\Resources\matrix.jpg" />
     <Image Include="..\Resources\TEST.jpg" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

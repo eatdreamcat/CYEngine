@@ -22,7 +22,7 @@ public:
     /*给shader程序传送 1 int 分量 uniform*/
     void setInt(const string& name, int value) const;
     /*给shader程序传送 n int 数组 uniform*/
-    void setIntArray(const string& name, int count, int* array) const;
+    void setIntArray(const string& name, int count, const int* array, bool isArray = false) const;
     /*给shader程序传送 2 int 分量 uniform*/
     void setInt(const string& name, int value0,  int value1) const;
     /*给shader程序传送 3 int 分量 uniform*/
@@ -32,15 +32,17 @@ public:
     /*给shader程序传送 1 float 分量 uniform*/
     void setFloat(const string& name, float value) const;
     /*给shader程序传送 n float 数组 uniform*/
-    void setFloatArray(const string& name, int count, float* array) const;
+    void setFloatArray(const string& name, int count, const float* array, bool isArray = false) const;
     /*给shader程序传送 2 float 分量 uniform*/
     void setFloat(const string& name, float value0, float value1) const;
     /*给shader程序传送 3 float 分量 uniform*/
     void setFloat(const string& name, float value0, float value1, float value2) const;
     /*给shader程序传送 4 float 分量 uniform*/
     void setFloat(const string& name, float value0, float value1, float value2, float value3) const;
-    /**/
-    void setMatrix4x4(const string& name, GLsizei count, GLboolean transpose, const GLfloat* value) const;
+    /*设置一个4x4矩阵*/
+    void setMatrix4x4(const string& name, int count, GLboolean transpose, const GLfloat* value, bool isArray = false) const;
+    /*设置贴图*/
+    void setTexture(const string& name, int textureSlot) const;
 private:
     const char* vertexSource;
     const char* fragmentSource;

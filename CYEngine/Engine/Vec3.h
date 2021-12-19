@@ -235,10 +235,6 @@ public:
         z *= scalar;
     };
 
-    inline void rotate() {
-
-    };
-
     inline void setZero()
     {
         x = y = z = 0.0f;

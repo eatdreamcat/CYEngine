@@ -25,6 +25,7 @@ private:
     Entity* entity;
     Type _type = Type::PERSPECTIVE;
     int _priority = 0;
+    Vec3 _eular;
     Vec3 _position;
     Vec3 _forward;
     Vec3 _right;
@@ -33,7 +34,7 @@ private:
     Matrix4x4 _viewMat;
     Matrix4x4 _proMat;
     Matrix4x4 _matViewProj;
-
+    void _updateCamera();
 public:
     static Camera* createPerspective(float fieldOfView, float aspectRatio, float nearPlane, float farPlane);
     static Camera* createOrthographic(float zoomX, float zoomY, float nearPlane, float farPlane);
@@ -42,18 +43,25 @@ public:
     static const Viewport& getDefaultViewport();
     static void setDefaultViewport(const Viewport& vp);
     static Camera* getDefaultCamera();
-
+public:
     Camera(const Vec3& position, const Vec3& target, const Vec3& worldup);
+    Camera(const Vec3& position, float pitch, float yaw, float roll, const Vec3& worldUp);
     Camera::Type getType() const { return _type; }
+    const Vec3& getPosition() const {
+        return _position;
+    }
     ~Camera();
 
 
     // ¡Ÿ ±
     const Matrix4x4 getViewMatrix() {
         Matrix4x4 viewMat;
-        Matrix4x4::createLookAt(_position, _position + _forward, _worldUp, &viewMat);
+        Matrix4x4::createLookAt(_position, _position + _forward, _worldUp  , &viewMat);
         return viewMat;
     }
+
+    void processMouseInput(float deltaX, float deltaY);
+    void move(float deltaX, float deltaY, float deltaZ);
 };
 
 
