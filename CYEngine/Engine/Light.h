@@ -16,17 +16,26 @@ public:
 
 protected:
 	Vec3 _position = Vec3::ZERO;
-	Vec3 _color = Vec3::ONE;
+	Vec3 _diffuse = Vec3::ONE;
+	Vec3 _ambient = Vec3::ONE;
+	Vec3 _specular = Vec3::ONE;
 	Light::Type _type= Light::Type::DIRECTIONAL;
 public:
-	const Vec3& getPosition() const {
+	virtual const Vec3& getPosition() const {
 		return _position;
 	}
 
-	const Vec3& getColor() const {
-		return _color;
+	virtual const Vec3& getAmbient() const {
+		return _ambient;
 	}
 
+	virtual const Vec3& getSpecular() const {
+		return _specular;
+	}
+
+	virtual const Vec3& getDiffuse() const {
+		return _diffuse;
+	}
 
 	virtual ~Light();
 };

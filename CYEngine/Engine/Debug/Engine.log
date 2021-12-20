@@ -1,2 +1,4 @@
 ﻿  RenderEngine.cpp
+E:\Code\CYEngine\CYEngine\Engine\RenderEngine.cpp(165,76): warning C4305: “参数”: 从“double”到“float”截断
+E:\Code\CYEngine\CYEngine\Engine\RenderEngine.cpp(165,97): warning C4305: “参数”: 从“double”到“float”截断
   Engine.vcxproj -> E:\Code\CYEngine\CYEngine\lib\RenderEngine.lib

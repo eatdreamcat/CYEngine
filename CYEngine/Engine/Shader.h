@@ -13,8 +13,8 @@ public:
     Shader(const char* vertexPath, const char* fragmentPath);
     virtual ~Shader() {};
     
-    const  char*const* GetVertexSource() { return &vertexSource; };
-    const  char*const* GetFragmentSource() { return &fragmentSource; };
+    const  char*const* GetVertexSource();
+    const  char*const* GetFragmentSource();
     /*指定当前要用的shader程序*/
     void use();
     /*给shader程序传送 bool*/
@@ -43,13 +43,14 @@ public:
     void setMatrix4x4(const string& name, int count, GLboolean transpose, const GLfloat* value, bool isArray = false) const;
     /*设置贴图*/
     void setTexture(const string& name, int textureSlot) const;
-private:
-    const char* vertexSource;
-    const char* fragmentSource;
-    string vertexString;
-    string fragmentString;
+
+    void define(const string& name, const string& value);
     bool compile();
-    bool checkCompileResult(GLuint shader, GLenum pname);
+private:
+    string vertexSource[2] = {"#version 330 core\n",""};
+    string fragmentSource[2] = {"#version 330 core\n",""};
+    
+    bool checkCompileResult(GLuint shader, GLenum pname, const string& name = "");
 };
 
 

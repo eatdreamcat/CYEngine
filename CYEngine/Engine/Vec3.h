@@ -297,6 +297,40 @@ public:
         return v;
     };
 
+    void rotateX(float angle)
+    {
+      
+        float cos = cosf(MATH_DEG_TO_RAD(angle));
+        float sin = sinf(MATH_DEG_TO_RAD(angle));
+        Vec3 v(*this);
+        y = v.y * cos - v.z * sin;
+        z = v.y * sin + v.z * cos;
+       
+    }
+
+   void rotateY(float angle) 
+    {
+      
+        float cos = cosf(MATH_DEG_TO_RAD(angle));
+        float sin = sinf(MATH_DEG_TO_RAD(angle));
+
+        Vec3 v(*this);
+        x = v.x * cos + v.z * sin;
+        z = -v.x * sin + v.z * cos;
+       
+    }
+
+    void rotateZ(float angle) 
+    {
+     
+        float cos = cosf(MATH_DEG_TO_RAD(angle));
+        float sin = sinf(MATH_DEG_TO_RAD(angle));
+
+        Vec3 v(*this);
+        x = v.x * cos - v.y * sin;
+        y = v.x * sin + v.y * cos;
+    }
+
     void smooth(const Vec3& target, float elapsedTime, float responseTime)
     {
         if (elapsedTime > 0)

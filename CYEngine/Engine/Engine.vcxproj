@@ -211,7 +211,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="cpp.hint" />
-    <Text Include="TestFragmentShader.frag">
+    <Text Include="StandarShader.frag">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
       <FileType>Document</FileType>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
@@ -224,7 +224,7 @@
     </Text>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="TestVertexShader.vert">
+    <Text Include="StandarShader.vert">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
       <FileType>Document</FileType>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
@@ -237,6 +237,7 @@
     </Text>
   </ItemGroup>
   <ItemGroup>
+    <Image Include="..\Resources\bili.jpg" />
     <Image Include="..\Resources\container2.png" />
     <Image Include="..\Resources\container2_specular.png" />
     <Image Include="..\Resources\content.png" />

@@ -154,10 +154,10 @@
     <None Include="cpp.hint" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="TestVertexShader.vert">
+    <Text Include="StandarShader.vert">
       <Filter>Shaders</Filter>
     </Text>
-    <Text Include="TestFragmentShader.frag">
+    <Text Include="StandarShader.frag">
       <Filter>Shaders</Filter>
     </Text>
   </ItemGroup>
@@ -178,6 +178,9 @@
       <Filter>资源文件</Filter>
     </Image>
     <Image Include="..\Resources\matrix.jpg">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="..\Resources\bili.jpg">
       <Filter>资源文件</Filter>
     </Image>
   </ItemGroup>
