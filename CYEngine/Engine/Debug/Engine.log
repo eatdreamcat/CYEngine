@@ -1,4 +1,40 @@
-﻿  RenderEngine.cpp
+﻿  Camera.cpp
+E:\Code\CYEngine\CYEngine\Engine\Camera.cpp(87,40): warning C4305: “参数”: 从“double”到“float”截断
+E:\Code\CYEngine\CYEngine\Engine\Camera.cpp(87,62): warning C4305: “参数”: 从“double”到“float”截断
+E:\Code\CYEngine\CYEngine\Engine\Camera.cpp(87,80): warning C4305: “参数”: 从“double”到“float”截断
+  CLog.cpp
+  CObject.cpp
+  Component.cpp
+  CVector.cpp
+  DirectionalLight.cpp
+  Entity.cpp
+  GlTexture.cpp
+  InputSystem.cpp
+E:\Code\CYEngine\CYEngine\Engine\InputSystem.cpp(17,51): warning C4244: “参数”: 从“double”转换到“float”，可能丢失数据
+E:\Code\CYEngine\CYEngine\Engine\InputSystem.cpp(17,18): warning C4244: “参数”: 从“double”转换到“float”，可能丢失数据
+  Light.cpp
+  main.cpp
+  Material.cpp
+  Mesh.cpp
+  MeshRender.cpp
+  PointLight.cpp
+  Quaternion.cpp
+  RenderableComponent.cpp
+E:\Code\CYEngine\CYEngine\Engine\RenderableComponent.cpp(10,28): warning C4018: “>”: 有符号/无符号不匹配
+  RenderEngine.cpp
 E:\Code\CYEngine\CYEngine\Engine\RenderEngine.cpp(165,76): warning C4305: “参数”: 从“double”到“float”截断
 E:\Code\CYEngine\CYEngine\Engine\RenderEngine.cpp(165,97): warning C4305: “参数”: 从“double”到“float”截断
+  Shader.cpp
+E:\Code\CYEngine\CYEngine\Engine\Shader.cpp(149,38): warning C4838: 从“unsigned int”转换到“int”需要收缩转换
+E:\Code\CYEngine\CYEngine\Engine\Shader.cpp(149,62): warning C4838: 从“unsigned int”转换到“int”需要收缩转换
+E:\Code\CYEngine\CYEngine\Engine\Shader.cpp(160,40): warning C4838: 从“unsigned int”转换到“int”需要收缩转换
+E:\Code\CYEngine\CYEngine\Engine\Shader.cpp(160,66): warning C4838: 从“unsigned int”转换到“int”需要收缩转换
+  SpotLight.cpp
+  正在生成代码...
+E:\Code\CYEngine\CYEngine\Engine\Shader.cpp(49): warning C4172: 返回局部变量或临时变量的地址: source
+E:\Code\CYEngine\CYEngine\Engine\Shader.cpp(55): warning C4172: 返回局部变量或临时变量的地址: source
+E:\Code\CYEngine\CYEngine\Engine\Camera.cpp(41): warning C4172: 返回局部变量或临时变量的地址
+  正在编译...
+  TransConst.cpp
+  正在生成代码...
   Engine.vcxproj -> E:\Code\CYEngine\CYEngine\lib\RenderEngine.lib

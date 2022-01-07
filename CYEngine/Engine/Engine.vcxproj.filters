@@ -45,13 +45,7 @@
     <ClInclude Include="EngineMacros.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="Shader.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="OpenGLMacros.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="GlTexture.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="Vec2.h">
@@ -84,9 +78,6 @@
     <ClInclude Include="Camera.h">
       <Filter>Renderer</Filter>
     </ClInclude>
-    <ClInclude Include="Material.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="Light.h">
       <Filter>Lights</Filter>
     </ClInclude>
@@ -98,6 +89,30 @@
     </ClInclude>
     <ClInclude Include="SpotLight.h">
       <Filter>Lights</Filter>
+    </ClInclude>
+    <ClInclude Include="Mesh.h">
+      <Filter>Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="Component.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderableComponent.h">
+      <Filter>Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="CLog.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="MeshRender.h">
+      <Filter>Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="Material.h">
+      <Filter>Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="GlTexture.h">
+      <Filter>Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="Shader.h">
+      <Filter>Renderer</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -111,12 +126,6 @@
       <Filter>InputSystem</Filter>
     </ClCompile>
     <ClCompile Include="CObject.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="Shader.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="GlTexture.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="Quaternion.cpp">
@@ -134,9 +143,6 @@
     <ClCompile Include="TransConst.cpp">
       <Filter>Math</Filter>
     </ClCompile>
-    <ClCompile Include="Material.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="Light.cpp">
       <Filter>Lights</Filter>
     </ClCompile>
@@ -149,9 +155,34 @@
     <ClCompile Include="SpotLight.cpp">
       <Filter>Lights</Filter>
     </ClCompile>
+    <ClCompile Include="Mesh.cpp">
+      <Filter>Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="Component.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderableComponent.cpp">
+      <Filter>Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="CLog.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="MeshRender.cpp">
+      <Filter>Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="Material.cpp">
+      <Filter>Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="GlTexture.cpp">
+      <Filter>Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="Shader.cpp">
+      <Filter>Renderer</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="cpp.hint" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="StandarShader.vert">
