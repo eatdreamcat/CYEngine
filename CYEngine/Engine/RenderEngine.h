@@ -9,6 +9,7 @@
 #include "OpenGLMacros.h"
 #include"Camera.h"
 #include "Material.h"
+#include "Pass.h"
 
 
 	class RenderEngine:public CObject
@@ -22,6 +23,7 @@
 		RenderEngine(RenderEngine& engine) :window(nullptr) {};
 	private:
 		GLFWwindow* window;
+		CVector<Pass> m_passQueue;
 	};
 
 

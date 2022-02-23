@@ -3,6 +3,7 @@
 #include "DirectionalLight.h"
 #include "PointLight.h"
 #include "SpotLight.h"
+#include <cuda_runtime_api.h>
 #pragma region ModelData
 float vertices[] = {
 	// positions          // normals           // texture coords
@@ -62,6 +63,28 @@ Vec3 cubePositions[] = {
 		Vec3(-1.0f, 0.0f, 0.0f), 
  
 };
+
+static void gpu_helper(std::string info, bool print_info = true)
+{
+
+	size_t free_byte;
+	size_t total_byte;
+
+	cudaError_t cuda_status = cudaMemGetInfo(&free_byte, &total_byte);
+
+	if (cudaSuccess != cuda_status) {
+		printf("Error: cudaMemGetInfo fails, %s \n", cudaGetErrorString(cuda_status));
+		return;
+	}
+
+	double free_db = (double)free_byte;
+	double total_db = (double)total_byte;
+	double used_db_1 = (total_db - free_db) / 1024.0 / 1024.0;
+
+	if (print_info)
+		std::cout << info << "   used GPU memory " << used_db_1 << "  MB," << used_db_1 * 1024 << " kb, " << used_db_1 * 1024 * 1024 <<" byte¡£\n";
+}
+
 const int CubeCount = sizeof(cubePositions)/sizeof(cubePositions[0]);
 
 
@@ -75,6 +98,8 @@ GlTexture* glTexture;
 GlTexture* glTextureLand;
 Camera* camera;
 DirectionalLight* directionalLight;
+ float deltaTime = 0.0f;
+ float lastFrameTime = 0.0f;
 bool RenderEngine::createWindow(int width, int height, const char* title) {
 
 
@@ -98,9 +123,7 @@ bool RenderEngine::createWindow(int width, int height, const char* title) {
 	}
 
 	GlViewport(0, 0, width, height);
-	//GlEnable(GL_CULL_FACE);
-	// GlCullFace(GL_FRONT);
-	//GlPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+	
 
 	// ÉèÖÃmodel
 	GlGenVertexArrays(1, &VAO);
@@ -155,9 +178,8 @@ void  RenderEngine::start() {
 
 
 
-
-	GlEnable(GL_DEPTH_TEST);
-	GlfwCursorEnable(window, false);
+	
+	GlfwCursorEnable(window, true);
 
 
 	// light
@@ -184,13 +206,27 @@ void  RenderEngine::start() {
 	material->_shader->define("POINT_LIGHT_COUNT", std::to_string(pointLight.size()));
 	material->_shader->define("SPOT_LIGHT_COUNT", std::to_string(spotLight.size()));
 	material->_shader->compile();
+
+
+	lastFrameTime = (float)GlfwGetTime();
+	const int FPS = 1200;
 	while (!GlfwWindowShouldClose(window))
 	{
-
+		auto currentFrameTime = (float)GlfwGetTime();
+		deltaTime = currentFrameTime - lastFrameTime;
+		if (deltaTime < 1 / FPS) continue;
+		lastFrameTime = currentFrameTime;
 		InputSystem::GetInstance()->ProcessInput();
 
+		GLuint t;
+		GlGenTextures(1, &t);
+		gpu_helper("TexID:" + std::to_string(t));
 
-		GlClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+		//GlEnable(GL_CULL_FACE);
+	// GlCullFace(GL_FRONT);
+	//GlPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+		GlEnable(GL_DEPTH_TEST);
+		GlClearColor(0.8f, 0.8f, 0.8f, 1.0f);
 		GlClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 
@@ -264,6 +300,10 @@ void  RenderEngine::start() {
 		}
 
 
+		for (int i = 0; i < m_passQueue.size(); ++i) {
+			auto pass = m_passQueue[i];
+			pass.Excute();
+		}
 
 		// clear up and prepare for next frame
 		GlfwSwapBuffers(window);

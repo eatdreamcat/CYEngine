@@ -114,6 +114,9 @@
     <ClInclude Include="Shader.h">
       <Filter>Renderer</Filter>
     </ClInclude>
+    <ClInclude Include="Pass.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="RenderEngine.cpp">
@@ -179,10 +182,19 @@
     <ClCompile Include="Shader.cpp">
       <Filter>Renderer</Filter>
     </ClCompile>
+    <ClCompile Include="Pass.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="cpp.hint" />
     <None Include="packages.config" />
+    <None Include="DepthOnlyShader.frag">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="DepthOnlyShader.vert">
+      <Filter>Shaders</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Text Include="StandarShader.vert">
