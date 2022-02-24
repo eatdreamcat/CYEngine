@@ -210,6 +210,23 @@ void  RenderEngine::start() {
 
 	lastFrameTime = (float)GlfwGetTime();
 	const int FPS = 1200;
+
+
+	GLuint t;
+	
+	auto Count = 10;
+	while (Count--)
+	{
+		glGenFramebuffers(1, &t);
+		cout << "frame buffer:" << t << endl;
+		const GLuint* t1 = &t;
+		glDeleteFramebuffers(1, t1);
+		GlGenBuffers(1, &t);
+		cout << "buffer:" << t << endl;
+		GlGenTextures(1, &t);
+		cout << " Texture buffer:" << t << endl;
+	}
+	return;
 	while (!GlfwWindowShouldClose(window))
 	{
 		auto currentFrameTime = (float)GlfwGetTime();
